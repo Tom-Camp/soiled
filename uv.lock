@@ -1,0 +1,34 @@
+version = 1
+revision = 3
+requires-python = ">=3.14"
+
+[[package]]
+name = "micropython-esp32-esp32-generic-s2-stubs"
+version = "1.27.0.post1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "micropython-stdlib-stubs" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/02/6d/56cde9e1fc1073509788d4ce53f59cc4e25a9169c6b712b26d380ea84ef8/micropython_esp32_esp32_generic_s2_stubs-1.27.0.post1.tar.gz", hash = "sha256:79e20bf81c99740d58a55b75110d1be0fe13d704bc8c8cfa85d26e0cf0d07c10", size = 93946, upload-time = "2025-12-18T15:48:00.367Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/1c/e6/9cf00bb6a8dbd820a2d474383de9d90be6612a8748eaf4f3ae962b600984/micropython_esp32_esp32_generic_s2_stubs-1.27.0.post1-py2.py3-none-any.whl", hash = "sha256:3866c54a6e5687c93baef763cdf0880ffaec510696fb15f848c731f0b20bb788", size = 118541, upload-time = "2025-12-18T15:47:59.291Z" },
+]
+
+[[package]]
+name = "micropython-stdlib-stubs"
+version = "1.27.0.post2"
+source = { registry = "https://pypi.org/simple" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/95/8e/54d09adb07b72bfcc0f55762baaf46a90827eff6d1a26361bf631c7a9039/micropython_stdlib_stubs-1.27.0.post2-py3-none-any.whl", hash = "sha256:a1d22c3a5c12b2fdf4c70025c01abdc203d5fe3872b5881206c031e0206a65c5", size = 147580, upload-time = "2026-02-24T20:35:56.166Z" },
+]
+
+[[package]]
+name = "soilsensor"
+version = "0.1.0"
+source = { virtual = "." }
+dependencies = [
+    { name = "micropython-esp32-esp32-generic-s2-stubs" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "micropython-esp32-esp32-generic-s2-stubs", specifier = ">=1.27.0.post1" }]
