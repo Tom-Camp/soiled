@@ -6,4 +6,18 @@ readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
     "micropython-esp32-esp32-generic-s2-stubs>=1.27.0.post1",
+    "pre-commit>=4.5.1",
 ]
+
+[tool.ruff]
+target-version = "py311"
+
+[tool.ruff.lint]
+ignore = [
+    "UP",   # pyupgrade — MicroPython doesn't support all modern syntax
+    "ANN",  # type annotations are optional on-device
+    "F821", # `const` is a MicroPython builtin, unknown to ruff
+]
+
+[tool.bandit]
+skips = ["B101"]  # assert statements are fine in firmware code
