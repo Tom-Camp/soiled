@@ -1,9 +1,8 @@
 import requests
-
 from secrets import API_KEY, DEVICE_ID
 
-class Requester:
 
+class Requester:
     def __init__(self, url: str):
         self.headers: dict = {
             "Content-Type": "application/json",
@@ -25,30 +24,27 @@ class Requester:
             except ValueError:
                 result = response.text
 
-            return {
-                "status": response.status_code,
-                "data": result
-            }
+            return {"status": response.status_code, "data": result}
         except OSError as os_error:
             return {
-                'status': 500,
-                'error': 'Network error',
-                'detail': str(os_error),
-                'type': 'OSError'
+                "status": 500,
+                "error": "Network error",
+                "detail": str(os_error),
+                "type": "OSError",
             }
         except ValueError as value_error:
             return {
-                'status': 400,
-                'error': 'Invalid request',
-                'detail': str(value_error),
-                'type': 'ValueError'
+                "status": 400,
+                "error": "Invalid request",
+                "detail": str(value_error),
+                "type": "ValueError",
             }
         except BaseException as error:
             return {
-                'status': 500,
-                'error': 'Unknown error',
-                'detail': str(error),
-                'type': type(error).__name__
+                "status": 500,
+                "error": "Unknown error",
+                "detail": str(error),
+                "type": type(error).__name__,
             }
         finally:
             if "response" in locals():

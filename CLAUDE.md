@@ -4,9 +4,19 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-MicroPython firmware for an ESP32-S2 that reads from an Adafruit STEMMA Soil Sensor (I2C capacitive moisture/temperature sensor) and POSTs readings to a remote API every hour.
+MicroPython firmware for an ESP32-S2 that reads from an Adafruit STEMMA Soil Sensor (I2C capacitive 
+moisture/temperature sensor) and POSTs readings to a remote API every hour.
 
-**Runtime**: MicroPython on ESP32-S2 — not CPython. Standard library availability is limited. The local Python 3.14 environment (managed by `uv`) is only for type-checking stubs; no code runs locally.
+**Runtime**: MicroPython on ESP32-S2 — not CPython. Standard library availability is limited. The local 
+Python 3.14 environment (managed by `uv`) is only for type-checking stubs; no code runs locally.
+
+## Hardware
+
+- **Microcontroller**: ESP32-S2 (e.g. Adafruit QT PY with uFL Antenna Port)
+- **Sensor**: Adafruit STEMMA Soil Sensor (I2C address `0x36`)
+- **Power connection**: Adafruit LiIon or LiPoly Charger BFF Add-On for QT Py
+- **Power**: 3.7V LiPo battery (e.g. 2000mAh) connected to charger add-on
+- **Connections**: Sensor SDA to ESP32 GPIO (e.g. 21), SCL to GPIO (e.g. 22) via STEMA QT Py I2C port
 
 ## Deploying to Device
 
@@ -32,7 +42,8 @@ mpremote repl
 
 ## Configuration (secrets.py)
 
-`secrets.py` is gitignored and must be created manually on the device or copied separately. Required variables:
+`secrets.py` is gitignored and must be created manually on the device or copied separately. Required 
+variables:
 
 ```python
 SSID = "..."
@@ -57,9 +68,11 @@ lib/
   stemma_soil_sensor.py      # StemmaSoilSensor(Seesaw) — get_temp() and get_moisture()
 ```
 
-The sensor driver layer: `seesaw.py` handles raw I2C register reads/writes; `stemma_soil_sensor.py` extends it with the specific register addresses and decoding for the STEMMA soil sensor (I2C address `0x36`).
+The sensor driver layer: `seesaw.py` handles raw I2C register reads/writes; `stemma_soil_sensor.py` extends 
+it with the specific register addresses and decoding for the STEMMA soil sensor (I2C address `0x36`).
 
-`main.py` converts temperature from Celsius to Fahrenheit before posting. The posted payload is `{"soil": {"moisture": <int>, "soil_temp": <float>}}`.
+`main.py` converts temperature from Celsius to Fahrenheit before posting. The posted payload is:`{"soil": 
+{"moisture": <int>, "soil_temp": <float>}}`.
 
 ## MicroPython Constraints
 
