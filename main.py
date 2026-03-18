@@ -1,7 +1,7 @@
 import gc
-import secrets
 
 from machine import Pin, I2C, deepsleep
+from secrets import API_URL, I2C_ID, SCL_PIN, SDA_PIN
 
 from lib.connect import Connect
 from lib.request import Requester
@@ -27,23 +27,19 @@ def soil(i2c) -> dict:
         return {"error": str(er)}
 
 
-wifi = Connect(
-    ssid=secrets.SSID,
-    password=secrets.PASSWORD,
-    hostname=secrets.HOSTNAME,
-)
+wifi = Connect()
 
 try:
     wifi.connect()
 
     soil_i2c = I2C(
-        secrets.I2C_ID,
-        sda=Pin(secrets.SDA_PIN),
-        scl=Pin(secrets.SCL_PIN),
+        I2C_ID,
+        sda=Pin(SDA_PIN),
+        scl=Pin(SCL_PIN),
         freq=20000,
     )
 
-    requester = Requester(secrets.API_URL)
+    requester = Requester(API_URL)
     requester.post(data={"soil": soil(soil_i2c)})
 finally:
     wifi.wlan.active(False)

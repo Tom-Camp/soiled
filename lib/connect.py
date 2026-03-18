@@ -2,18 +2,21 @@ import gc
 import network
 import time
 
+from secrets import SSID, PASSWORD, HOSTNAME
+
 
 gc.enable()
 
 
 class Connect:
-    def __init__(self, ssid: str, password: str, hostname: str):
-        self.ssid = ssid
-        self.password = password
-        self.status: bool = False
-        self.wlan = network.WLAN(network.STA_IF)
+    ssid: str = SSID
+    password: str = PASSWORD
+    status: bool = False
+    wlan: network.WLAN = network.WLAN(network.STA_IF)
+
+    def __init__(self):
+        network.hostname(HOSTNAME)
         self.wlan.active(True)
-        self.hostname = network.hostname(hostname)
 
     def connect(self):
         self.wlan.connect(self.ssid, self.password)
